@@ -34,6 +34,24 @@ namespace MintaProjektAPI.Controllers
             }
         }
 
+        // Get Employees with query params
+        [HttpGet("GetEmployees")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees([FromQuery] PaginationRequest requestParams)
+        {
+            try
+            {
+                var employees = await _repository.GetEmployees(requestParams);
+                return Ok(employees);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetAll method in EmployeeController: {ex.Message}");
+
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+
         // Get only the requested employees
         [HttpPost("RequestedEmployees")]
         public async Task<ActionResult<IEnumerable<Employee>>> GetRequestedEmployees([FromBody]PaginationRequest pageDTO)

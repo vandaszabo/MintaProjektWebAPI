@@ -37,5 +37,22 @@ namespace MintaProjektAPI.Repositories
 
             return response;
         }
+
+        public async Task<PaginatedResponse<Employee>> GetEmployees(PaginationRequest request)
+        {
+            int totalRecords = await _dbContext.Employees.CountAsync();
+            var employees = await _dbContext.Employees
+            .Skip((request.CurrentPage - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync();
+
+            var response = new PaginatedResponse<Employee>
+            {
+                TotalRecords = totalRecords,
+                Data = employees
+            };
+
+            return response;
+        }
     }
 }

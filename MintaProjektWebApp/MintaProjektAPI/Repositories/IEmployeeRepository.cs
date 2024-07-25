@@ -7,5 +7,6 @@ namespace MintaProjektAPI.Repositories
     {
         Task<IEnumerable<Employee>> GetAll();
         Task<PaginatedResponse<Employee>> GetRequestedEmployees(int currentPage, int pageSize);
+        Task<PaginatedResponse<Employee>> GetEmployees(PaginationRequest request);
     }
 }
