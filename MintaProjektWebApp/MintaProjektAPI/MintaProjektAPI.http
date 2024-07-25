@@ -1,0 +1,6 @@
+@MintaProjektAPI_HostAddress = http://localhost:5105
+
+GET {{MintaProjektAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
