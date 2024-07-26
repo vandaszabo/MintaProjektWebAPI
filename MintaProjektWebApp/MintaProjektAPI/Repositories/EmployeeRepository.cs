@@ -15,29 +15,13 @@ namespace MintaProjektAPI.Repositories
             _dbContext = dbContext;
         }
 
+        // Get all existing records
         public async Task<IEnumerable<Employee>> GetAll()
         {
             return await _dbContext.Employees.ToListAsync();
         }
 
-        public async Task<PaginatedResponse<Employee>> GetRequestedEmployees(int currentPage, int pageSize)
-        {
-
-            int totalRecords = await _dbContext.Employees.CountAsync();
-            var employees = await _dbContext.Employees
-            .Skip((currentPage - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            var response = new PaginatedResponse<Employee>
-            {
-                TotalRecords = totalRecords,
-                Data = employees
-            };
-
-            return response;
-        }
-
+        // Get only requested records
         public async Task<PaginatedResponse<Employee>> GetEmployees(PaginationRequest request)
         {
             int totalRecords = await _dbContext.Employees.CountAsync();
